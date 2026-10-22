@@ -51,11 +51,12 @@ _Estimate: 3 hrs · Week 1 · Tier: CORE (PRD Steps: 1, 2)_
 
 _Estimate: 3 hrs · Week 1 · Tier: CORE (PRD Step: 3)_
 
-- [ ] **2.1. CORE TypeScript Interfaces (`src/types/`):**
-  - `product.ts`: `Product` and `ProductsResponse` (`products`, `total`, `skip`, `limit`).
-  - `user.ts`: `AuthUser` (`username: string`, `isLoggedIn: boolean`), `LoginFormValues`.
-  - `cart.ts`: `CartItem` (`productId`, `title`, `thumbnail`, `price`, `discountPercentage`, `stock`, `quantity`), `CartState` (`items: CartItem[]`).
-  - `order.ts`: `ShippingInfo` (`fullName`, `email`, `address`, `city`).
+- [x] **2.1. CORE TypeScript Interfaces (`src/types/`):**
+- `api.ts`: `AsyncState`.
+- `product.ts`: `Product` , `ProductsResponse` (`products`, `total`, `skip`, `limit`), `Category`.
+- `user.ts`: `AuthUser` (`username: string`, `isLoggedIn: boolean`), `LoginFormValues`.
+- `cart.ts`: `CartItem` (`productId`, `title`, `thumbnail`, `price`, `discountPercentage`, `stock`, `quantity`), `CartState` (`items: CartItem[]`).
+- `order.ts`: `ShippingInfo` (`fullName`, `email`, `address`, `city`),`OrderStatus`,`Order`.
 - [ ] **2.2. Helper Utilities (`src/utils/format.ts`):**
   - `discountedPrice(price, discountPercentage)` — Formula: $price \times (1 - discountPercentage / 100)$.
   - `formatPrice(amount)` — `Intl.NumberFormat` (`$1,299.00`).
