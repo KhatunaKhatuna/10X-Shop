@@ -1,13 +1,9 @@
-import Footer from "./components/layout/Footer";
-import Header from "./components/layout/Header";
 import { BrowserRouter } from "react-router-dom";
+import { MainLayout } from "./components/layout";
 function App() {
   return (
     <BrowserRouter>
-      <>
-        <Header />
-        <Footer />
-      </>
+      <MainLayout />
     </BrowserRouter>
   );
 }
