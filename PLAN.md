@@ -43,7 +43,7 @@
 *შეფასება: 3 სთ · კვირა 1 · დონე: CORE (PRD ნაბიჯები: 1, 2)*
 - [x] **1.1. პროექტის ინიციალიზაცია:** Vite + React 19 + TypeScript შაბლონი; Tailwind CSS v4 (`@tailwindcss/vite`, `@import "tailwindcss";`).
 - [x] **1.2. კონფიგურაცია და სკრიპტები:** `tsconfig.app.json`-ში `"strict": true`, `"noUnusedLocals": true`, `"noUnusedParameters": true`. ESLint-ში `@typescript-eslint/no-explicit-any: error`. სკრიპტები: `dev`, `build`, `preview`, `lint`, `typecheck` (`tsc --noEmit`).
-- [ ] **1.3. CORE ფოლდერების სტრუქტურა:** `src/api/`, `src/components/` (`ui/`, `layout/`, `product/`, `cart/`), `src/context/`, `src/pages/`, `src/routes/`, `src/types/`, `src/utils/`.
+- [x] **1.3. CORE ფოლდერების სტრუქტურა:** `src/api/`, `src/components/` (`ui/`, `layout/`, `product/`, `cart/`), `src/context/`, `src/hooks/`, `src/models/`, `src/pages/`, `src/routes/`, `src/types/`, `src/utils/`.
 
 #### Epic 2: CORE მონაცემთა მოდელები და საბაზისო API
 *შეფასება: 3 სთ · კვირა 1 · დონე: CORE (PRD ნაბიჯი: 3)*

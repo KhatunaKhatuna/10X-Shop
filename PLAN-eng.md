@@ -45,7 +45,7 @@ _Estimate: 3 hrs · Week 1 · Tier: CORE (PRD Steps: 1, 2)_
 
 - [x] **1.1. Project Initialization:** Vite + React 19 + TypeScript template; Tailwind CSS v4 (`@tailwindcss/vite`, `@import "tailwindcss";`).
 - [x] **1.2. Configuration and Scripts:** In `tsconfig.app.json`: `"strict": true`, `"noUnusedLocals": true`, `"noUnusedParameters": true`. ESLint: `@typescript-eslint/no-explicit-any: error`. Scripts: `dev`, `build`, `preview`, `lint`, `typecheck` (`tsc --noEmit`).
-- [ ] **1.3. CORE Directory Structure:** `src/api/`, `src/components/` (`ui/`, `layout/`, `product/`, `cart/`), `src/context/`, `src/pages/`, `src/routes/`, `src/types/`, `src/utils/`.
+- [x] **1.3. CORE Directory Structure:** `src/api/`, `src/components/` (`ui/`, `layout/`, `product/`, `cart/`), `src/context/`, `src/hooks/`, `src/models/`, `src/pages/`, `src/routes/`, `src/types/`, `src/utils/`.
 
 #### Epic 2: CORE Data Models and Basic API
 
