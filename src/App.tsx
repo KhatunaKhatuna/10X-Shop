@@ -1,11 +1,7 @@
-import { BrowserRouter } from "react-router-dom";
-import { MainLayout } from "./components/layout";
+import AppRoutes from './routes/AppRoutes';
+
 function App() {
-  return (
-    <BrowserRouter>
-      <MainLayout />
-    </BrowserRouter>
-  );
+  return <AppRoutes />;
 }
 
 export default App;
