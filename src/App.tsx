@@ -1,8 +1,10 @@
+import Header from "./components/layout/Header";
+import { BrowserRouter } from "react-router-dom";
 function App() {
   return (
-    <h1 className="text-3xl text-red-700 font-bold underline">
-      Hello 10X Shop!
-    </h1>
+    <BrowserRouter>
+      <Header />
+    </BrowserRouter>
   );
 }
 
