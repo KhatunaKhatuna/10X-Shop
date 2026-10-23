@@ -68,14 +68,14 @@ _შეფასება: 3 სთ · კვირა 1 · დონე: CORE (
 
 _შეფასება: 4 სთ · კვირა 1 · დონე: CORE (PRD ნაბიჯი: 4)_
 
-- [ ] **3.1. მარშრუტიზაცია (`src/routes/AppRoutes.tsx`):** ერთი `BrowserRouter` და საერთო `Layout` (`<Outlet />`-ით). მარშრუტები: `/`, `/login`, `/products/:id`, `/cart`, `/checkout`, `*`.
-- [ ] **3.2. `ScrollToTop` კომპონენტი:** `useLocation` + `useEffect` -> `window.scrollTo(0, 0)` მარშრუტის შეცვლისას.
-- [ ] **3.3. `Header` და `Footer` (`src/components/layout/`):**
+- [x] **3.1. მარშრუტიზაცია (`src/routes/AppRoutes.tsx`):** ერთი `BrowserRouter` და საერთო `Layout` (`<Outlet />`-ით). მარშრუტები: `/`, `/login`, `/products/:id`, `/cart`, `/checkout`, `*`.
+- [x] **3.2. `ScrollToTop` კომპონენტი:** `useLocation` + `useEffect` -> `window.scrollTo(0, 0)` მარშრუტის შეცვლისას.
+- [x] **3.3. `Header` და `Footer` (`src/components/layout/`):**
   - ბრენდის ლოგო „10X Shop“ (`/`), `NavLink` აქტიური სტილით (`Catalog`, `Cart`).
   - კალათის ბეჯი (`Σ quantity`, 0-ზე იმალება).
   - Login / Logout ღილაკი და მობილურზე (≤ 480px) ადაპტირებული მენიუ.
-- [ ] **3.4. Reusable UI კომპონენტი `children`-ით:** მაგ. `Container` ან `CardWrapper` (`PropsWithChildren`) React კომპოზიციის მოთხოვნის დასაკმაყოფილებლად.
-- [ ] **3.5. `NotFoundPage` (`*`):** სათაური „Page not found“, ტექსტი „The page you are looking for does not exist.“, ღილაკი „Go to catalog“ (`/`).
+- [x] **3.4. Reusable UI კომპონენტი `children`-ით:** მაგ. `Container` ან `CardWrapper` (`PropsWithChildren`) React კომპოზიციის მოთხოვნის დასაკმაყოფილებლად.
+- [x] **3.5. `NotFoundPage` (`*`):** სათაური „Page not found“, ტექსტი „The page you are looking for does not exist.“, ღილაკი „Go to catalog“ (`/`).
 
 #### Epic 4: ავტორიზაციის სიმულაცია და დაცული მარშრუტი (P1)
 

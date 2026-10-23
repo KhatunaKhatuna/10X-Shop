@@ -68,14 +68,14 @@ _Estimate: 3 hrs · Week 1 · Tier: CORE (PRD Step: 3)_
 
 _Estimate: 4 hrs · Week 1 · Tier: CORE (PRD Step: 4)_
 
-- [ ] **3.1. Routing Setup (`src/routes/AppRoutes.tsx`):** Single `BrowserRouter` and shared `Layout` (with `<Outlet />`). Routes: `/`, `/login`, `/products/:id`, `/cart`, `/checkout`, `*`.
-- [ ] **3.2. `ScrollToTop` Component:** `useLocation` + `useEffect` -> `window.scrollTo(0, 0)` on route changes.
-- [ ] **3.3. `Header` and `Footer` (`src/components/layout/`):**
+- [x] **3.1. Routing Setup (`src/routes/AppRoutes.tsx`):** Single `BrowserRouter` and shared `Layout` (with `<Outlet />`). Routes: `/`, `/login`, `/products/:id`, `/cart`, `/checkout`, `*`.
+- [x] **3.2. `ScrollToTop` Component:** `useLocation` + `useEffect` -> `window.scrollTo(0, 0)` on route changes.
+- [x] **3.3. `Header` and `Footer` (`src/components/layout/`):**
   - Brand logo "10X Shop" (`/`), `NavLink` with active states (`Catalog`, `Cart`).
   - Cart badge displaying `Σ quantity` (hidden when count is 0).
   - Login / Logout button and mobile-friendly menu (for screens ≤ 480px).
-- [ ] **3.4. Reusable UI Component with `children`:** e.g., `Container` or `CardWrapper` (`PropsWithChildren`) to fulfill the React composition criteria.
-- [ ] **3.5. `NotFoundPage` (`*`):** Title "Page not found", text "The page you are looking for does not exist.", button "Go to catalog" (`/`).
+- [x] **3.4. Reusable UI Component with `children`:** e.g., `Container` or `CardWrapper` (`PropsWithChildren`) to fulfill the React composition criteria.
+- [x] **3.5. `NotFoundPage` (`*`):** Title "Page not found", text "The page you are looking for does not exist.", button "Go to catalog" (`/`).
 
 #### Epic 4: Auth Simulation and Protected Route (P1)
 
