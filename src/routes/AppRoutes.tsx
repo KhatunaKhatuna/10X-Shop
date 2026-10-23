@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { MainLayout } from "../components/layout";
+import { MainLayout, ScrollToTop } from "../components/layout";
 import {
   CatalogPage,
   ProductPage,
@@ -14,6 +14,8 @@ import {
 export default function AppRoutes() {
   return (
     <BrowserRouter>
+      {/* Automatically scrolls page to top on route change */}
+      <ScrollToTop />
       <Routes>
         {/* Parent route with shared Layout (Header + <Outlet /> + Footer) */}
         <Route element={<MainLayout />}>
