@@ -7,12 +7,9 @@ import {
   Mail,
   MapPin,
 } from "lucide-react";
+import { scrollToTop } from "@/utils";
 
 export default function Footer() {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   return (
     <footer className="mt-auto bg-white dark:bg-slate-900 border-t border-slate-200/80 dark:border-slate-800 transition-colors duration-200">
       {/* Top feature badges bar */}
@@ -73,10 +70,10 @@ export default function Footer() {
           {/* Brand info & Socials */}
           <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
             <div className="w-full max-w-70 sm:max-w-none flex flex-col items-center sm:items-start space-y-4">
-              {/* Clickable logo returning to top */}
+              {/* Clickable logo returning to top smoothly if already on home */}
               <Link
                 to="/"
-                onClick={scrollToTop}
+                onClick={() => scrollToTop(true)}
                 className="flex items-center gap-3 cursor-pointer group"
                 title="Go to top of catalog"
               >
@@ -148,7 +145,6 @@ export default function Footer() {
               <li>
                 <Link
                   to="/"
-                  onClick={scrollToTop}
                   className="text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
                 >
                   All Products
@@ -157,7 +153,6 @@ export default function Footer() {
               <li>
                 <Link
                   to="/cart"
-                  onClick={scrollToTop}
                   className="text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
                 >
                   View Cart
@@ -166,7 +161,6 @@ export default function Footer() {
               <li>
                 <Link
                   to="/checkout"
-                  onClick={scrollToTop}
                   className="text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
                 >
                   Checkout
@@ -175,7 +169,6 @@ export default function Footer() {
               <li>
                 <Link
                   to="/login"
-                  onClick={scrollToTop}
                   className="text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
                 >
                   My Account
@@ -193,7 +186,6 @@ export default function Footer() {
               <li>
                 <Link
                   to="/orders"
-                  onClick={scrollToTop}
                   className="text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
                 >
                   Track Order
