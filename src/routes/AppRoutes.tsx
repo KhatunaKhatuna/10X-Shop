@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { MainLayout, ScrollToTop } from "../components/layout";
+import { MainLayout, ScrollToTop } from "@/components/layout";
 import {
   CatalogPage,
   ProductPage,
@@ -9,7 +9,7 @@ import {
   OrdersPage,
   ProfilePage,
   NotFoundPage,
-} from "../pages";
+} from "@/pages";
 
 export default function AppRoutes() {
   return (

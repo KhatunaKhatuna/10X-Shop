@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "@/hooks";
+// Direct sibling import within the layout module (avoids circular dependency with "@/components/layout" barrel)
 import NavLinks from "./NavLinks";
 
 interface MobileMenuProps {

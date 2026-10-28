@@ -2,6 +2,7 @@ import { useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import { useTheme } from "@/hooks";
+// Direct sibling imports within the layout module (avoids circular dependency with "@/components/layout" barrel)
 import NavLinks from "./NavLinks";
 import MobileMenu from "./MobileMenu";
 

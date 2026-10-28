@@ -1,7 +1,8 @@
 import { Outlet } from 'react-router-dom';
+// Direct sibling imports within the layout module (avoids circular dependency with "@/components/layout" barrel)
 import Header from './Header';
 import Footer from './Footer';
-import Container from '../ui/Container';
+import { Container } from '@/components/ui';
 
 export default function MainLayout() {
   return (
