@@ -146,7 +146,7 @@ _შეფასება: 5 სთ · კვირა 3 · დონე: CORE (
 
 - [ ] **9.1. Responsive & Interactive States:** 375px-დან 1440px-მდე ტესტირება (0 ჰორიზონტალური სქროლი, ღილაკები ≥ 44px); ყველა ინტერაქტიულ ელემენტზე `hover:`, `focus-visible:`, `disabled:`.
 - [ ] **9.2. კლასური `ErrorBoundary` (`src/components/common/ErrorBoundary.tsx`):** `getDerivedStateFromError` + `componentDidCatch`, fallback UI: „Something went wrong.“ + ღილაკი „Reload“.
-- [ ] **9.3. `DEBUG-LOG.md` (CORE მინიმუმ 3 ბაგი):** რეალური ხარვეზების აღწერა ფორმატით: _სიმპტომი → რეპროდუქცია → ინსტრუმენტი → მიზეზი → ფიქსი (commit) → რა ვისწავლე_.
+- [x] **9.3. `DEBUG-LOG.md` (CORE მინიმუმ 3 ბაგი):** რეალური ხარვეზების აღწერა ფორმატით: _სიმპტომი → რეპროდუქცია → ინსტრუმენტი → მიზეზი → ფიქსი (commit) → რა ვისწავლე_ (დოკუმენტირებულია 6 რეალური Edge-Case და არქიტექტურული ფიქსი).
 
 #### Epic 10: Build, Deploy და CORE დოკუმენტაცია (D2, D3)
 

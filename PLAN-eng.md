@@ -146,7 +146,7 @@ _Estimate: 5 hrs · Week 3 · Tier: CORE (PRD Steps: 19, 20, 21, 22)_
 
 - [ ] **9.1. Responsive & Interactive States:** Verification across 375px to 1440px (zero horizontal scrolling, touch targets ≥ 44px); interactive states (`hover:`, `focus-visible:`, `disabled:`) on all buttons and inputs.
 - [ ] **9.2. Class-based `ErrorBoundary` (`src/components/common/ErrorBoundary.tsx`):** `getDerivedStateFromError` + `componentDidCatch`, fallback UI: "Something went wrong." + "Reload" button.
-- [ ] **9.3. `DEBUG-LOG.md` (CORE minimum 3 bugs):** Document real bugs using format: _Symptom → Reproduction → Tool → Root Cause → Fix (commit) → Lesson Learned_.
+- [x] **9.3. `DEBUG-LOG.md` (CORE minimum 3 bugs):** Document real bugs using format: _Symptom → Reproduction → Tool → Root Cause → Fix (commit) → Lesson Learned_ (Documented 6 real edge-cases and architectural fixes).
 
 #### Epic 10: Build, Deploy, and CORE Documentation (D2, D3)
 
