@@ -11,6 +11,10 @@
   @apply text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800;
 }
 
+@utility btn-primary {
+  @apply inline-flex items-center justify-center gap-2 min-h-11 px-5 py-2.5 rounded-xl font-semibold text-sm bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white shadow-xs hover:shadow-md transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2;
+}
+
 @layer base {
   body {
     font-family:
