@@ -117,12 +117,13 @@ _შეფასება: 4 სთ · კვირა 2 · დონე: CORE (
 
 _შეფასება: 5 სთ · კვირა 2 · დონე: CORE (PRD ნაბიჯები: 12, 13)_
 
-- [ ] **7.1. `CartContext` (`src/context/CartContext.tsx`):**
-  - Immutable ოპერაციები: `addItem`, `removeItem`, `updateQuantity` (`1 <= qty <= stock`), `clearCart`.
-  - სინქრონიზაცია `localStorage`-თან (`shop_cart` გასაღებით).
-- [ ] **7.2. `CartPage` (`/cart`):**
-  - ნივთების სია: ფოტო, სათაური (ბმულით პროდუქტზე), ერთეულის ფასდაკლებული ფასი, stepper, ხაზის ჯამი, `Remove` და `Clear cart` (დადასტურებით).
-  - Order Summary: Subtotal, Total და ღილაკი „Proceed to checkout“ (`/checkout`).
+- [x] **7.1. `CartContext` (`src/context/CartContext.ts`, `src/context/CartProvider.tsx`, `src/hooks/useCart.ts`):**
+  - Immutable ოპერაციები და `cartReducer` (`useReducer`): `addItem` (მარაგის დაცვით `stock <= 0` და `qty <= stock`), `removeItem`, `updateQuantity` (`1 <= qty <= stock`), `clearCart`, `applyPromo`, `removePromo`.
+  - სინქრონიზაცია `localStorage`-თან (`shop_cart` გასაღებით `useEffect`-ით).
+  - Derived metrics: `totalItems`, `subtotal`, `discount`, `shipping` (`FREE_SHIPPING_FROM = 100`, `SHIPPING_COST = 10`), `total`.
+- [x] **7.2. `CartPage` (`/cart`):**
+  - ნივთების სია: ფოტო, სათაური (ბმულით პროდუქტზე), ერთეულის ფასდაკლებული ფასი, stepper, ხაზის ჯამი, `Remove` და `Clear cart` (დადასტურებით `window.confirm`).
+  - Order Summary: Sticky ბარათი, Subtotal, Discount (პრომო კოდი `10X10` + `Remove`), Shipping (Free shipping მინიშნებით), Total და ღილაკი „Proceed to checkout“ (`/checkout`).
   - ცარიელი კალათა: „Your cart is empty.“ + ბმული „Browse products“ (`/`).
 
 #### Epic 8: Checkout და შეკვეთის დადასტურება (P5 - CORE)
@@ -190,7 +191,7 @@ _შეფასება: 7 სთ · კვირა 2–3 · დონე: FU
 - [ ] **12.2. Product Reviews & Related Products (`P3.4`, `P3.5`):**
   - ტაბები Description / Reviews; შეფასების დამატების ფორმა (Rating 1–5, Comment მინ. 10 სიმბოლო) -> შენახვა `shop_reviews`-ში + საშუალო რეიტინგის გადათვლა `useMemo`-თი.
   - Related Products: იგივე კატეგორიის 4 პროდუქტის ჩვენება იგივე `ProductCard` კომპონენტით.
-- [ ] **12.3. Promo Code & Cart Reducer (`P4.2`, `P4.4`):**
+- [x] **12.3. Promo Code & Cart Reducer (`P4.2`, `P4.4`):**
   - `cartReducer` (`ADD_ITEM`, `SET_QTY`, `REMOVE_ITEM`, `CLEAR`, `APPLY_PROMO`, `REMOVE_PROMO`).
   - პრომო კოდი `10X10` (case-insensitive, -10% ფასდაკლება) და შეცდომა `Invalid promo code`.
 

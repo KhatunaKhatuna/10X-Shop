@@ -13,12 +13,13 @@ import {
 } from "lucide-react";
 import type { Product } from "@/types";
 import { fetchProductById } from "@/api";
-import { useFetch } from "@/hooks";
+import { useCart, useFetch } from "@/hooks";
 import { StarRating, ErrorState } from "@/components/ui";
 import { ProductDetailsSkeleton } from "@/components/product";
 import NotFoundPage from "@/pages/NotFoundPage";
 
 export default function ProductPage() {
+  const { addItem } = useCart();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -113,7 +114,7 @@ export default function ProductPage() {
 
   const handleAddToCart = () => {
     if (isOutOfStock) return;
-    // TODO: Connect to CartContext.addItem(product, quantity)
+    addItem(product, quantity);
     setIsAdded(true);
     setTimeout(() => {
       setIsAdded(false);

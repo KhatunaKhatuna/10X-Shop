@@ -117,12 +117,13 @@ _Estimate: 4 hrs · Week 2 · Tier: CORE (PRD Steps: 10, 11)_
 
 _Estimate: 5 hrs · Week 2 · Tier: CORE (PRD Steps: 12, 13)_
 
-- [ ] **7.1. `CartContext` (`src/context/CartContext.tsx`):**
-  - Immutable operations: `addItem`, `removeItem`, `updateQuantity` (`1 <= qty <= stock`), `clearCart`.
-  - Synchronization with `localStorage` (key: `shop_cart`).
-- [ ] **7.2. `CartPage` (`/cart`):**
-  - Line items list: thumbnail, title (linked to product), unit discounted price, stepper, subtotal per line, `Remove` and `Clear cart` (with confirmation).
-  - Order Summary: Subtotal, Total, and "Proceed to checkout" button (`/checkout`).
+- [x] **7.1. `CartContext` (`src/context/CartContext.ts`, `src/context/CartProvider.tsx`, `src/hooks/useCart.ts`):**
+  - Immutable operations and `cartReducer` (`useReducer`): `addItem` (with stock guard `stock <= 0` and `qty <= stock`), `removeItem`, `updateQuantity` (`1 <= qty <= stock`), `clearCart`, `applyPromo`, `removePromo`.
+  - Synchronization with `localStorage` (key: `shop_cart` via `useEffect`).
+  - Derived metrics: `totalItems`, `subtotal`, `discount`, `shipping` (`FREE_SHIPPING_FROM = 100`, `SHIPPING_COST = 10`), `total`.
+- [x] **7.2. `CartPage` (`/cart`):**
+  - Line items list: thumbnail, title (linked to product), unit discounted price, stepper, subtotal per line, `Remove` and `Clear cart` (with confirmation `window.confirm`).
+  - Order Summary: Sticky card, Subtotal, Discount (`10X10` promo code + `Remove`), Shipping (with Free Shipping threshold progress), Total, and "Proceed to checkout" button (`/checkout`).
   - Empty cart state: "Your cart is empty." + link "Browse products" (`/`).
 
 #### Epic 8: Checkout and Order Confirmation (P5 - CORE)
@@ -190,7 +191,7 @@ _Estimate: 7 hrs · Weeks 2–3 · Tier: FULL (PRD Steps: 9, 17)_
 - [ ] **12.2. Product Reviews & Related Products (`P3.4`, `P3.5`):**
   - Description / Reviews tabs; add review form (Rating 1–5, Comment min. 10 chars) -> save to `shop_reviews` + recalculate average rating via `useMemo`.
   - Related Products: 4 items from the same category rendered using the standard `ProductCard`.
-- [ ] **12.3. Promo Code & Cart Reducer (`P4.2`, `P4.4`):**
+- [x] **12.3. Promo Code & Cart Reducer (`P4.2`, `P4.4`):**
   - `cartReducer` (`ADD_ITEM`, `SET_QTY`, `REMOVE_ITEM`, `CLEAR`, `APPLY_PROMO`, `REMOVE_PROMO`).
   - Promo code `10X10` (case-insensitive, 10% discount) and error message `Invalid promo code`.
 
