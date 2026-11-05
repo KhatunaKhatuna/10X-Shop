@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { ShoppingBag, ShoppingCart, User, type LucideIcon } from "lucide-react";
+import { useCart } from "@/hooks";
 
 interface NavItem {
   name: string;
@@ -25,6 +26,7 @@ export default function NavLinks({
   onItemClick,
 }: NavLinksProps) {
   const isMobile = variant === "mobile";
+  const { totalItems } = useCart();
 
   return (
     <nav
@@ -51,11 +53,12 @@ export default function NavLinks({
             />
             {hasBadge && (
               <span
+                aria-label={`${totalItems} items in cart`}
                 className={`ml-1.5 font-bold rounded-full bg-orange-600 text-white text-xs ${
                   isMobile ? "px-2 py-0.5" : "px-1.5 py-0.5"
                 }`}
               >
-                0
+                {totalItems}
               </span>
             )}
           </div>

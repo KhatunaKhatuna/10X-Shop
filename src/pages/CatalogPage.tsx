@@ -2,13 +2,14 @@ import { useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 import type { Product, ProductsResponse } from "@/types";
 import { fetchProducts } from "@/api";
-import { useFetch } from "@/hooks";
+import { useCart, useFetch } from "@/hooks";
 import { ErrorState, EmptyState, Pagination } from "@/components/ui";
 import { ProductGrid, ProductGridSkeleton } from "@/components/product";
 
 const LIMIT = 12;
 
 export default function CatalogPage() {
+  const { addItem } = useCart();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const pageParam = searchParams.get("page");
@@ -44,8 +45,7 @@ export default function CatalogPage() {
   };
 
   const handleAddToCart = (product: Product) => {
-    // TODO: Connect to CartContext.addItem(product)
-    void product;
+    addItem(product, 1);
   };
 
   return (
