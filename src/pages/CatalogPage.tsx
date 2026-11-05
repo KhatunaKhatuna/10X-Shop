@@ -1,50 +1,21 @@
-import { useState, useEffect } from "react";
-import type { Product } from "@/types";
+import { useCallback } from "react";
+import type { Product, ProductsResponse } from "@/types";
 import { fetchProducts } from "@/api";
+import { useFetch } from "@/hooks";
 import { ErrorState, EmptyState } from "@/components/ui";
 import { ProductGrid, ProductGridSkeleton } from "@/components/product";
 
 export default function CatalogPage() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [total, setTotal] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [retryTrigger, setRetryTrigger] = useState(false);
+  const fetchCatalog = useCallback(
+    (signal?: AbortSignal) => fetchProducts(12, 0, signal),
+    [],
+  );
 
-  useEffect(() => {
-    const controller = new AbortController();
+  const { data, isLoading, error, refetch } =
+    useFetch<ProductsResponse>(fetchCatalog);
 
-    async function loadCatalog() {
-      try {
-        const data = await fetchProducts(12, 0, controller.signal);
-        setProducts(data.products);
-        setTotal(data.total);
-      } catch (err: unknown) {
-        if (err instanceof Error && err.name === "AbortError") {
-          return;
-        }
-        const message =
-          err instanceof Error ? err.message : "An unexpected error occurred.";
-        setError(message);
-      } finally {
-        if (!controller.signal.aborted) {
-          setIsLoading(false);
-        }
-      }
-    }
-
-    loadCatalog();
-
-    return () => {
-      controller.abort();
-    };
-  }, [retryTrigger]);
-
-  const handleRetry = () => {
-    setIsLoading(true);
-    setError(null);
-    setRetryTrigger((prev) => !prev);
-  };
+  const products: Product[] = data?.products ?? [];
+  const total = data?.total ?? 0;
 
   const handleAddToCart = (product: Product) => {
     // TODO: Connect to CartContext.addItem(product)
@@ -62,11 +33,10 @@ export default function CatalogPage() {
             Explore Trending Tech & Lifestyle Essentials
           </p>
           <p className="text-sm text-emerald-100 dark:text-slate-300 leading-relaxed">
-            Fast DummyJSON catalog with responsive filters, debounced search,
-            and instant cart dispatch.
+            Discover handpicked premium tech, fashion, and everyday essentials
+            with verified customer reviews, exclusive discounts, and express delivery.
           </p>
         </div>
-
         <div
           className="absolute -right-10 -bottom-10 w-64 h-64 bg-emerald-400/20 dark:bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"
           aria-hidden="true"
@@ -90,7 +60,7 @@ export default function CatalogPage() {
         <ErrorState
           title="Unable to load catalog"
           message={error}
-          onRetry={handleRetry}
+          onRetry={refetch}
         />
       )}
 
