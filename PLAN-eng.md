@@ -105,13 +105,13 @@ _Estimate: 5 hrs · Week 1 · Tier: CORE (PRD Steps: 7, 8)_
 
 _Estimate: 4 hrs · Week 2 · Tier: CORE (PRD Steps: 10, 11)_
 
-- [ ] **6.1. `ProductPage` (`/products/:id`):**
+- [x] **6.1. `ProductPage` (`/products/:id`):**
   - Read `useParams()`; if `id` is not a positive integer (`/products/abc`) or API returns 404 (`/products/999999`) -> render `NotFoundPage` cleanly without crashing.
-  - Required dependency `[id]` in `useEffect`.
-- [ ] **6.2. Gallery and Interaction:**
+  - Integration with `useFetch` hook and `ProductDetailsSkeleton` loading state.
+- [x] **6.2. Gallery and Interaction:**
   - Thumbnail selector to swap main image (`useState`).
   - Quantity stepper (`-` / `+`) bounded by `1 <= qty <= stock`.
-  - "Add to cart" button with inline confirmation feedback and "← Back to catalog" button (`navigate(-1)`).
+  - "Add to cart" button with inline confirmation feedback, breadcrumb navigation, and "← Back to catalog" button (`navigate(-1)`).
 
 #### Epic 7: Cart System and Cart Page (P4 - CORE)
 

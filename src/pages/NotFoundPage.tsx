@@ -1,26 +1,26 @@
-import { Link } from 'react-router-dom';
-import { ShoppingBag, ArrowLeft, HelpCircle } from 'lucide-react';
+import { Link } from "react-router-dom";
+import { ShoppingBag, ArrowLeft, HelpCircle } from "lucide-react";
 
 export default function NotFoundPage() {
   return (
     <div className="min-h-[60vh] flex items-center justify-center py-12 px-4">
-      <div className="max-w-md w-full bg-white rounded-2xl border border-slate-200/80 p-8 sm:p-10 text-center shadow-xs">
+      <div className="max-w-md w-full bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-8 sm:p-10 text-center shadow-xs">
         {/* Visual 404 Badge */}
-        <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center shadow-xs">
+        <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shadow-xs">
           <HelpCircle className="w-8 h-8" />
         </div>
 
-        <div className="inline-block px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-bold tracking-wider uppercase mb-2">
+        <div className="inline-block px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-bold tracking-wider uppercase mb-2">
           Error 404
         </div>
 
         {/* PRD Required Heading: Page not found */}
-        <h1 className="font-heading text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+        <h1 className="font-heading text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
           Page not found
         </h1>
 
         {/* PRD Required Text: The page you are looking for does not exist. */}
-        <p className="mt-3 text-slate-500 text-sm leading-relaxed">
+        <p className="mt-3 text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
           The page you are looking for does not exist. It might have been moved or removed.
         </p>
 
@@ -37,7 +37,7 @@ export default function NotFoundPage() {
           <button
             type="button"
             onClick={() => window.history.back()}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-3 rounded-xl border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-50 font-semibold text-sm transition-colors cursor-pointer"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold text-sm transition-colors cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Go Back</span>
