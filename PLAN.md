@@ -105,13 +105,13 @@ _შეფასება: 5 სთ · კვირა 1 · დონე: CORE (
 
 _შეფასება: 4 სთ · კვირა 2 · დონე: CORE (PRD ნაბიჯები: 10, 11)_
 
-- [ ] **6.1. `ProductPage` (`/products/:id`):**
+- [x] **6.1. `ProductPage` (`/products/:id`):**
   - `useParams()`-ის წაკითხვა; თუ `id` არაა დადებითი მთელი რიცხვი (`/products/abc`) ან API აბრუნებს 404-ს (`/products/999999`) -> `NotFoundPage` აპლიკაციის დაქრაშვის გარეშე.
-  - `useEffect` dependency-ში `[id]`-ის აუცილებელი მითითება.
-- [ ] **6.2. გალერეა და ინტერაქცია:**
+  - `useFetch` ჰუკით ჩატვირთვა და `ProductDetailsSkeleton` ინტეგრაცია.
+- [x] **6.2. გალერეა და ინტერაქცია:**
   - მთავარი ფოტოს შეცვლა thumbnail-ზე დაჭერით (`useState`).
   - რაოდენობის stepper (`-` / `+`) საზღვრებით `1 <= qty <= stock`.
-  - „Add to cart“ ღილაკი inline დადასტურებით და ბმული „← Back to catalog“ (`navigate(-1)`).
+  - „Add to cart“ ღილაკი inline დადასტურებით, breadcrumb ნავიგაცია და ბმული „← Back to catalog“ (`navigate(-1)`).
 
 #### Epic 7: კალათის სისტემა და Cart გვერდი (P4 - CORE)
 

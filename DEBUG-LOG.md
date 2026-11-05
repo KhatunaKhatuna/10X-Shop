@@ -186,4 +186,50 @@ Implemented the clean Accessible Card pattern in [`src/components/product/Produc
 
 ---
 
+## 8. JavaScript `NaN !== NaN` Trap & React Infinite Re-render Loop
+
+### Problem Description
+
+When navigating to an invalid product route such as `/products/12a`, the browser displayed a completely blank white screen instead of rendering the expected `NotFoundPage` (404 state). The console threw:
+`Error: Maximum update depth exceeded. This can happen when a component repeatedly calls setState inside componentWillUpdate or componentDidUpdate.`
+
+### Root Cause (IEEE 754 & React Render Phase setState)
+
+In [`src/pages/ProductPage.tsx`](src/pages/ProductPage.tsx), state synchronization was written to reset the gallery index and quantity when navigating between products:
+
+```tsx
+const numericId = Number(id); // Number("12a") evaluates to NaN
+const [prevId, setPrevId] = useState(numericId); // prevId initialized to NaN
+
+if (prevId !== numericId) { // Evaluates: NaN !== NaN
+  setPrevId(numericId);
+  setSelectedImageIndex(0);
+  setQuantity(1);
+}
+```
+
+Under IEEE 754 floating-point specifications (and JavaScript standard behavior), `NaN` is not equal to any value, including itself (`NaN === NaN` is `false`, and `NaN !== NaN` is always `true`). As a result:
+1. `if (prevId !== numericId)` evaluated to `true` on every render pass.
+2. `setPrevId` and `setQuantity` were invoked synchronously in the render phase.
+3. React re-rendered immediately, where `NaN !== NaN` was true again, triggering an infinite render loop.
+4. The React tree crashed before reaching the `if (!isValidId) return <NotFoundPage />` guard.
+
+### Solution
+
+Switched the previous ID tracker to use the route parameter string (`id`) directly instead of the parsed `numericId`:
+
+```tsx
+const [prevId, setPrevId] = useState(id);
+if (prevId !== id) {
+  setPrevId(id);
+  setSelectedImageIndex(0);
+  setQuantity(1);
+  setIsAdded(false);
+}
+```
+
+Since string comparison (`"12a" !== "12a"`) is strictly `false`, no unintended state updates occur. The component cleanly executes down to `if (!isValidId) return <NotFoundPage />`, gracefully rendering the 404 page without crashing.
+
+---
+
 
