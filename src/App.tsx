@@ -1,10 +1,12 @@
-import { ThemeProvider } from "@/context";
+import { CartProvider, ThemeProvider } from "@/context";
 import AppRoutes from "@/routes/AppRoutes";
 
 function App() {
   return (
     <ThemeProvider>
-      <AppRoutes />
+      <CartProvider>
+        <AppRoutes />
+      </CartProvider>
     </ThemeProvider>
   );
 }
