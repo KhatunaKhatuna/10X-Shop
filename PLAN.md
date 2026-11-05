@@ -57,10 +57,10 @@ _შეფასება: 3 სთ · კვირა 1 · დონე: CORE (
   - `user.ts`: `AuthUser` (`username: string`, `isLoggedIn: boolean`), `LoginFormValues`.
   - `cart.ts`: `CartItem` (`productId`, `title`, `thumbnail`, `price`, `discountPercentage`, `stock`, `quantity`), `CartState` (`items: CartItem[]`).
   - `order.ts`: `ShippingInfo` (`fullName`, `email`, `address`, `city`),`OrderStatus`,`Order`.
-- [ ] **2.2. დამხმარე ფუნქციები (`src/utils/format.ts`):**
+- [x] **2.2. დამხმარე ფუნქციები (`src/utils/format.ts`):**
   - `discountedPrice(price, discountPercentage)` — ფორმულა: $price \times (1 - discountPercentage / 100)$.
   - `formatPrice(amount)` — `Intl.NumberFormat` (`$1,299.00`).
-- [ ] **2.3. პროდუქტების საბაზისო API (`src/api/products.api.ts`):**
+- [x] **2.3. პროდუქტების საბაზისო API (`src/api/products.api.ts`):**
   - `fetchProducts(limit = 12, skip = 0): Promise<ProductsResponse>`
   - `fetchProductById(id: number): Promise<Product>`
 
@@ -92,13 +92,14 @@ _შეფასება: 3 სთ · კვირა 1 · დონე: CORE (
 
 _შეფასება: 5 სთ · კვირა 1 · დონე: CORE (PRD ნაბიჯები: 7, 8)_
 
-- [ ] **5.1. `CatalogPage` (`/`):** `useEffect`-ით 12 პროდუქტის ჩამოტვირთვა; Loading, Error და Empty (`No products found.`) მდგომარეობების conditional rendering.
-- [ ] **5.2. `ProductCard` (`src/components/product/ProductCard.tsx`):**
+- [x] **5.1. `CatalogPage` (`/`):** `useEffect`-ით 12 პროდუქტის ჩამოტვირთვა; Loading, Error და Empty (`No products found.`) მდგომარეობების conditional rendering.
+- [x] **5.2. `ProductCard` (`src/components/product/ProductCard.tsx`):**
   - სურათი (`loading="lazy"`, `width`, `height`, `alt`), სათაური, კატეგორია · ბრენდი, რეიტინგი (`★ 4.7`).
   - ფასდაკლებული ფასი + საწყისი გადახაზული + ბეჯი `-X%` (თუ `discountPercentage >= 1`).
   - მარაგის სტატუსი: `In stock` (>5), `Only N left!` (1–5, ნარინჯისფერი), `Out of stock` (0, წითელი + disabled ღილაკი).
   - ღილაკი „Add to cart“ და ბარათზე კლიკით გადასვლა `/products/:id`-ზე.
-- [ ] **5.3. `ProductGrid`:** `map()` და `key={product.id}`, Tailwind responsive grid (Mobile: 1 სვეტი, Tablet: 2–3, Desktop: 4).
+- [x] **5.3. `ProductGrid`:** `map()` და `key={product.id}`, Tailwind responsive grid (Mobile: 1 სვეტი, Tablet: 2–3, Desktop: 4).
+- [x] **5.4. Pagination (PRD Annex A P2.7 & P2.8):** `Pagination` კომპონენტი, URL `?page=` სინქრონიზაცია `useSearchParams`-ით, დინამიური რაოდენობის მთვლელი (`Showing 1–12 of 194`), smooth scroll to top.
 
 #### Epic 6: პროდუქტის დეტალური გვერდი (P3 - CORE)
 

@@ -15,6 +15,14 @@
   @apply inline-flex items-center justify-center gap-2 min-h-11 px-5 py-2.5 rounded-xl font-semibold text-sm bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white shadow-xs hover:shadow-md transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2;
 }
 
+@utility pagination-btn {
+  @apply min-h-11 min-w-11 inline-flex items-center justify-center rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer focus-visible:ring-2 focus-visible:ring-emerald-500 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white dark:disabled:hover:bg-slate-900;
+}
+
+@utility pagination-btn-active {
+  @apply min-h-11 min-w-11 inline-flex items-center justify-center rounded-xl border border-transparent bg-emerald-600 hover:bg-emerald-700 text-white font-bold shadow-xs transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-emerald-500;
+}
+
 @layer base {
   body {
     font-family:

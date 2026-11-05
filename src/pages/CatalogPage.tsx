@@ -1,14 +1,23 @@
 import { useCallback } from "react";
+import { useSearchParams } from "react-router-dom";
 import type { Product, ProductsResponse } from "@/types";
 import { fetchProducts } from "@/api";
 import { useFetch } from "@/hooks";
-import { ErrorState, EmptyState } from "@/components/ui";
+import { ErrorState, EmptyState, Pagination } from "@/components/ui";
 import { ProductGrid, ProductGridSkeleton } from "@/components/product";
 
+const LIMIT = 12;
+
 export default function CatalogPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const pageParam = searchParams.get("page");
+  const currentPage = Math.max(1, parseInt(pageParam || "1", 10) || 1);
+  const skip = (currentPage - 1) * LIMIT;
+
   const fetchCatalog = useCallback(
-    (signal?: AbortSignal) => fetchProducts(12, 0, signal),
-    [],
+    (signal?: AbortSignal) => fetchProducts(LIMIT, skip, signal),
+    [skip],
   );
 
   const { data, isLoading, error, refetch } =
@@ -16,6 +25,23 @@ export default function CatalogPage() {
 
   const products: Product[] = data?.products ?? [];
   const total = data?.total ?? 0;
+  const totalPages = Math.ceil(total / LIMIT);
+
+  const startItem = total === 0 ? 0 : skip + 1;
+  const endItem = Math.min(skip + products.length, total);
+
+  const handlePageChange = (newPage: number) => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      if (newPage <= 1) {
+        next.delete("page");
+      } else {
+        next.set("page", String(newPage));
+      }
+      return next;
+    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const handleAddToCart = (product: Product) => {
     // TODO: Connect to CartContext.addItem(product)
@@ -34,7 +60,8 @@ export default function CatalogPage() {
           </p>
           <p className="text-sm text-emerald-100 dark:text-slate-300 leading-relaxed">
             Discover handpicked premium tech, fashion, and everyday essentials
-            with verified customer reviews, exclusive discounts, and express delivery.
+            with verified customer reviews, exclusive discounts, and express
+            delivery.
           </p>
         </div>
         <div
@@ -42,19 +69,21 @@ export default function CatalogPage() {
           aria-hidden="true"
         />
       </div>
+
+      {/* Header and Results Counter */}
       <div className="flex items-center justify-between">
         <h1 className="font-heading text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
           Catalog
         </h1>
         {!isLoading && !error && products.length > 0 && (
           <span className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium">
-            Showing 1–{products.length} of {total}
+            Showing {startItem}–{endItem} of {total}
           </span>
         )}
       </div>
 
       {/* Conditional Rendering for Loading, Error, Empty, and Success states */}
-      {isLoading && <ProductGridSkeleton count={12} />}
+      {isLoading && <ProductGridSkeleton count={LIMIT} />}
 
       {!isLoading && error && (
         <ErrorState
@@ -72,7 +101,14 @@ export default function CatalogPage() {
       )}
 
       {!isLoading && !error && products.length > 0 && (
-        <ProductGrid products={products} onAdd={handleAddToCart} />
+        <>
+          <ProductGrid products={products} onAdd={handleAddToCart} />
+          <Pagination
+            page={currentPage}
+            totalPages={totalPages}
+            onChange={handlePageChange}
+          />
+        </>
       )}
     </div>
   );

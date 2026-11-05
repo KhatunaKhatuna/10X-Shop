@@ -57,10 +57,10 @@ _Estimate: 3 hrs · Week 1 · Tier: CORE (PRD Step: 3)_
 - `user.ts`: `AuthUser` (`username: string`, `isLoggedIn: boolean`), `LoginFormValues`.
 - `cart.ts`: `CartItem` (`productId`, `title`, `thumbnail`, `price`, `discountPercentage`, `stock`, `quantity`), `CartState` (`items: CartItem[]`).
 - `order.ts`: `ShippingInfo` (`fullName`, `email`, `address`, `city`),`OrderStatus`,`Order`.
-- [ ] **2.2. Helper Utilities (`src/utils/format.ts`):**
+- [x] **2.2. Helper Utilities (`src/utils/format.ts`):**
   - `discountedPrice(price, discountPercentage)` — Formula: $price \times (1 - discountPercentage / 100)$.
   - `formatPrice(amount)` — `Intl.NumberFormat` (`$1,299.00`).
-- [ ] **2.3. Baseline Products API (`src/api/products.api.ts`):**
+- [x] **2.3. Baseline Products API (`src/api/products.api.ts`):**
   - `fetchProducts(limit = 12, skip = 0): Promise<ProductsResponse>`
   - `fetchProductById(id: number): Promise<Product>`
 
@@ -92,13 +92,14 @@ _Estimate: 3 hrs · Week 1 · Tier: CORE (PRD Steps: 5, 6)_
 
 _Estimate: 5 hrs · Week 1 · Tier: CORE (PRD Steps: 7, 8)_
 
-- [ ] **5.1. `CatalogPage` (`/`):** Fetch 12 products via `useEffect`; conditional rendering of Loading, Error, and Empty (`No products found.`) states.
-- [ ] **5.2. `ProductCard` (`src/components/product/ProductCard.tsx`):**
+- [x] **5.1. `CatalogPage` (`/`):** Fetch 12 products via `useEffect`; conditional rendering of Loading, Error, and Empty (`No products found.`) states.
+- [x] **5.2. `ProductCard` (`src/components/product/ProductCard.tsx`):**
   - Image (`loading="lazy"`, `width`, `height`, `alt`), title, category · brand, rating (`★ 4.7`).
   - Discounted price + struck-through original price + discount badge `-X%` (if `discountPercentage >= 1`).
   - Stock indicator: `In stock` (>5), `Only N left!` (1–5, orange badge), `Out of stock` (0, red badge + disabled button).
   - "Add to cart" button and card click navigation to `/products/:id`.
-- [ ] **5.3. `ProductGrid`:** `map()` rendering with stable `key={product.id}`, Tailwind responsive grid (Mobile: 1 column, Tablet: 2–3, Desktop: 4).
+- [x] **5.3. `ProductGrid`:** `map()` rendering with stable `key={product.id}`, Tailwind responsive grid (Mobile: 1 column, Tablet: 2–3, Desktop: 4).
+- [x] **5.4. Pagination (PRD Annex A P2.7 & P2.8):** `Pagination` component, URL `?page=` sync via `useSearchParams`, dynamic result counter (`Showing 1–12 of 194`), smooth scroll to top.
 
 #### Epic 6: Product Details Page (P3 - CORE)
 
