@@ -1,8 +1,8 @@
-import { Outlet } from 'react-router-dom';
-// Direct sibling imports within the layout module (avoids circular dependency with "@/components/layout" barrel)
-import Header from './Header';
-import Footer from './Footer';
-import { Container } from '@/components/ui';
+import { Suspense } from "react";
+import { Outlet } from "react-router-dom";
+import Header from "./Header";
+import Footer from "./Footer";
+import { Container, Spinner } from "@/components/ui";
 
 export default function MainLayout() {
   return (
@@ -10,7 +10,9 @@ export default function MainLayout() {
       <Header />
       <main className="flex-1 py-6 sm:py-8">
         <Container>
-          <Outlet />
+          <Suspense fallback={<Spinner />}>
+            <Outlet />
+          </Suspense>
         </Container>
       </main>
       <Footer />

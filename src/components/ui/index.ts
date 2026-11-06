@@ -11,3 +11,6 @@ export type { EmptyStateProps } from "./EmptyState";
 
 export { default as Pagination } from "./Pagination";
 export type { PaginationProps } from "./Pagination";
+
+export { default as Spinner } from "./Spinner";
+export type { SpinnerProps } from "./Spinner";
