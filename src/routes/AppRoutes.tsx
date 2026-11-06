@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { MainLayout, ScrollToTop } from "@/components/layout";
+import { ProtectedRoute } from "./ProtectedRoute";
 import {
   CatalogPage,
   ProductPage,
@@ -22,7 +23,14 @@ export default function AppRoutes() {
           <Route path="/" element={<CatalogPage />} />
           <Route path="/products/:id" element={<ProductPage />} />
           <Route path="/cart" element={<CartPage />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route
+            path="/checkout"
+            element={
+              <ProtectedRoute>
+                <CheckoutPage />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/orders" element={<OrdersPage />} />
           <Route path="/orders/:id" element={<OrdersPage />} />

@@ -1,4 +1,10 @@
 export {
+  AuthContext,
+  type AuthContextType,
+} from "./AuthContext";
+export { AuthProvider } from "./AuthProvider";
+
+export {
   ThemeContext,
   type Theme,
   type ThemeContextType,

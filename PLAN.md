@@ -81,12 +81,12 @@ _შეფასება: 4 სთ · კვირა 1 · დონე: CORE (
 
 _შეფასება: 3 სთ · კვირა 1 · დონე: CORE (PRD ნაბიჯები: 5, 6)_
 
-- [ ] **4.1. `AuthContext` (`src/context/AuthContext.tsx`):** `user` state, `login(username)` და `logout()` (Logout არ შლის კალათას და აბრუნებს `/`-ზე).
-- [ ] **4.2. `LoginPage` (`/login`):**
-  - Controlled form (`useState`, `onChange`, `onSubmit` + `preventDefault`).
-  - ზუსტი ვალიდაცია: ცარიელ ველზე `Username is required`, პაროლზე (< 6 სიმბოლო) `Password is required` / `Password must be at least 6 characters`.
-  - ბმული „← Back to catalog“ (`/`).
-- [ ] **4.3. `ProtectedRoute` (`/checkout`-ისთვის):** სტუმრის გადამისამართება `/login`-ზე (`state={{ from: location }}`), ხოლო შესვლის შემდეგ უკან `/checkout`-ზე დაბრუნება.
+- [x] **4.1. `AuthContext` (`src/context/AuthContext.ts`, `AuthProvider.tsx`, `useAuth.ts`):** `user` state, `isLoggedIn`, `login(username)` და `logout()` (სესიის შენახვა `localStorage`-ში `useLocalStorage`-ით; Logout არ შლის კალათას და აბრუნებს `/`-ზე; დინამიური ნავიგაცია `NavLinks.tsx`-ში).
+- [x] **4.2. `LoginPage` (`/login`):**
+  - Formik + Yup ვალიდაცია (`src/schemas/login.schema.ts`).
+  - ზუსტი ვალიდაცია: ცარიელ ველზე `Username is required`, პაროლზე (< 6 სიმბოლო) `Password is required` / `Password must be at least 6 characters`, ქართული ასოების აკრძალვა `Only Latin characters are allowed`.
+  - პაროლის ჩვენება/დამალვის თვალი (`Eye`/`EyeOff`), ბანერი დაცული გადამისამართებისას და ბმული „← Back to catalog“ (`/`).
+- [x] **4.3. `ProtectedRoute` (`/checkout`-ისთვის):** სტუმრის გადამისამართება `/login`-ზე (`state={{ from: location }}`), ხოლო შესვლის შემდეგ პირდაპირ უკან `/checkout`-ზე დაბრუნება.
 
 #### Epic 5: კატალოგი და პროდუქტის ბარათი (P2 - CORE)
 
