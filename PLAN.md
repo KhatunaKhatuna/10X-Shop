@@ -130,17 +130,20 @@ _შეფასება: 5 სთ · კვირა 2 · დონე: CORE (
 
 _შეფასება: 4 სთ · კვირა 2 · დონე: CORE (PRD ნაბიჯები: 14, 15, 16)_
 
-- [ ] **8.1. `CheckoutPage` (`/checkout`):** ცარიელი კალათის შემთხვევაში გადამისამართება `/cart`-ზე.
-- [ ] **8.2. Controlled Shipping Form და ვალიდაცია:**
-  - 4 სავალდებულო ველი (`useState`):
+- [x] **8.1. `CheckoutPage` (`/checkout`):** ცარიელი კალათის შემთხვევაში გადამისამართება `/cart`-ზე.
+- [x] **8.2. Controlled Shipping Form და ვალიდაცია:**
+  - Formik + Yup სქემა (`src/schemas/checkout.schema.ts`) 4 სავალდებულო ველით:
     - `Full name` (მინ. 3 სიმბოლო -> `Full name must be at least 3 characters`)
     - `Email` (ფორმატის შემოწმება -> `Please enter a valid email address`)
     - `Address` (მინ. 5 სიმბოლო -> `Address must be at least 5 characters`)
     - `City` (სავალდებულო -> `City is required`)
-- [ ] **8.3. შეკვეთის სიმულაცია:**
-  - ვალიდურ submit-ზე „Place order“ ღილაკის დაბლოკვა (ორმაგი კლიკის თავიდან ასაცილებლად).
-  - ეკრანზე „Thank you! Your order has been placed.“ + შეკვეთის ჯამისა და დეტალების ჩვენება.
-  - კალათის გასუფთავება (`clearCart()`).
+  - Inline error შეტყობინებები მხოლოდ `touched` ველებისთვის.
+- [x] **8.3. შეკვეთის სიმულაცია და დადასტურება:**
+  - ვალიდურ submit-ზე „Place order“ ღილაკის დაბლოკვა (`isSubmitting`, ორმაგი კლიკის თავიდან ასაცილებლად).
+  - ეკრანზე „Thank you! Your order has been placed.“ + შეკვეთის ნომერი (`#10X-00001`), მიწოდების დეტალები, პროდუქტების ჩამონათვალი და ფინანსური ჯამი.
+  - შეკვეთის შენახვა `localStorage`-ში (`shop_orders` / `useLocalStorage`).
+  - კალათის ავტომატური გასუფთავება (`clearCart()`) და ფორმის რესეტი (`resetForm()`).
+  - გადასვლა კატალოგში „Continue Shopping“ ღილაკით.
 
 #### Epic 9: Tailwind CSS v4, Responsive, Error Boundary და Debugging (O2, O3, TW)
 

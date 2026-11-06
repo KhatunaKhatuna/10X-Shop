@@ -130,17 +130,20 @@ _Estimate: 5 hrs · Week 2 · Tier: CORE (PRD Steps: 12, 13)_
 
 _Estimate: 4 hrs · Week 2 · Tier: CORE (PRD Steps: 14, 15, 16)_
 
-- [ ] **8.1. `CheckoutPage` (`/checkout`):** Redirect to `/cart` if the cart is empty.
-- [ ] **8.2. Controlled Shipping Form and Validation:**
-  - 4 required fields (`useState`):
+- [x] **8.1. `CheckoutPage` (`/checkout`):** Redirect to `/cart` if the cart is empty.
+- [x] **8.2. Controlled Shipping Form and Validation:**
+  - Formik + Yup schema (`src/schemas/checkout.schema.ts`) with 4 required fields:
     - `Full name` (min. 3 chars -> `Full name must be at least 3 characters`)
     - `Email` (format verification -> `Please enter a valid email address`)
     - `Address` (min. 5 chars -> `Address must be at least 5 characters`)
     - `City` (required -> `City is required`)
-- [ ] **8.3. Order Simulation:**
-  - On valid submission, disable "Place order" button to prevent duplicate submissions.
-  - Render confirmation screen: "Thank you! Your order has been placed." + summary of order details.
-  - Clear the cart (`clearCart()`).
+  - Inline error messages only on touched fields.
+- [x] **8.3. Order Simulation and Confirmation:**
+  - On valid submission, disable "Place order" button (`isSubmitting`) to prevent duplicate submissions.
+  - Render confirmation screen: "Thank you! Your order has been placed." + sequential order number (`#10X-00001`), shipping details, items list, and financial summary.
+  - Persist order history to `localStorage` (`shop_orders` via `useLocalStorage`).
+  - Clear the cart (`clearCart()`) and reset form (`resetForm()`).
+  - Return to catalog via "Continue Shopping" button.
 
 #### Epic 9: Tailwind CSS v4, Responsive, Error Boundary, and Debugging (O2, O3, TW)
 
