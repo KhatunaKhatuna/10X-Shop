@@ -32,9 +32,30 @@ export default function AppRoutes() {
             }
           />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/orders" element={<OrdersPage />} />
-          <Route path="/orders/:id" element={<OrdersPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route
+            path="/orders"
+            element={
+              <ProtectedRoute>
+                <OrdersPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/orders/:id"
+            element={
+              <ProtectedRoute>
+                <OrdersPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
           {/* 404 Catch-all route */}
           <Route path="*" element={<NotFoundPage />} />
         </Route>

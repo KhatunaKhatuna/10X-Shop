@@ -26,7 +26,7 @@ export default function Footer() {
                   Fast Delivery
                 </h4>
                 <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Free shipping on orders over $50
+                  Free shipping on orders over $100
                 </p>
               </div>
             </div>

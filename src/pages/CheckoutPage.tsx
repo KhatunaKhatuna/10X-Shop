@@ -14,7 +14,7 @@ import {
   AlertCircle,
   PackageCheck,
 } from "lucide-react";
-import { useCart, useLocalStorage } from "@/hooks";
+import { useCart, useLocalStorage, useAuth } from "@/hooks";
 import { checkoutSchema, type CheckoutFormValues } from "@/schemas";
 import type { Order } from "@/types";
 import {
@@ -26,6 +26,7 @@ import {
 
 export default function CheckoutPage() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const { items, promoCode, subtotal, discount, shipping, total, clearCart } =
     useCart();
 
@@ -42,8 +43,9 @@ export default function CheckoutPage() {
   // Formik integration using Yup schema
   const { handleSubmit, getFieldProps, touched, errors, isSubmitting } =
     useFormik<CheckoutFormValues>({
+      enableReinitialize: true,
       initialValues: {
-        fullName: "",
+        fullName: user?.username || "",
         email: "",
         address: "",
         city: "",

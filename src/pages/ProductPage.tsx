@@ -17,9 +17,10 @@ import { useCart, useFetch } from "@/hooks";
 import { StarRating, ErrorState } from "@/components/ui";
 import { ProductDetailsSkeleton } from "@/components/product";
 import NotFoundPage from "@/pages/NotFoundPage";
+import { formatPrice, discountedPrice } from "@/utils";
 
 export default function ProductPage() {
-  const { addItem } = useCart();
+  const { addItem, items } = useCart();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -93,28 +94,31 @@ export default function ProductPage() {
       : [product.thumbnail];
   const activeImage = images[selectedImageIndex] ?? product.thumbnail;
 
-  // Stock calculations
+  // Stock & cart calculations
   const stock = product.stock ?? 0;
+  const inCartQty =
+    items.find((item) => item.productId === product.id)?.quantity ?? 0;
+  const availableToAdd = Math.max(0, stock - inCartQty);
   const isOutOfStock = stock === 0;
+  const isMaxStockInCart = inCartQty >= stock && stock > 0;
   const isLowStock = stock >= 1 && stock <= 5;
 
   // Pricing calculations
   const hasDiscount = product.discountPercentage >= 1;
-  const discountedPrice = hasDiscount
-    ? (product.price * (1 - product.discountPercentage / 100)).toFixed(2)
-    : product.price.toFixed(2);
+  const finalPrice = discountedPrice(product.price, product.discountPercentage);
+  const savings = Math.max(0, product.price - finalPrice);
 
   const handleDecrement = () => {
     setQuantity((prev) => Math.max(1, prev - 1));
   };
 
   const handleIncrement = () => {
-    setQuantity((prev) => Math.min(stock, prev + 1));
+    setQuantity((prev) => Math.min(availableToAdd, prev + 1));
   };
 
   const handleAddToCart = () => {
-    if (isOutOfStock) return;
-    addItem(product, quantity);
+    if (isOutOfStock || isMaxStockInCart || availableToAdd <= 0) return;
+    addItem(product, Math.min(quantity, availableToAdd));
     setIsAdded(true);
     setTimeout(() => {
       setIsAdded(false);
@@ -187,8 +191,8 @@ export default function ProductPage() {
               className="w-full h-full object-contain transition-all duration-300"
             />
             {hasDiscount && (
-              <span className="absolute top-4 left-4 inline-flex items-center px-3 py-1 rounded-full text-xs font-extrabold uppercase bg-rose-600 text-white shadow-sm">
-                -{Math.round(product.discountPercentage)}% OFF
+              <span className="absolute top-4 left-4 inline-flex items-center px-3 py-1 rounded-full text-xs font-extrabold uppercase bg-orange-600 text-white shadow-sm">
+                −{Math.round(product.discountPercentage)}% OFF
               </span>
             )}
           </div>
@@ -254,7 +258,7 @@ export default function ProductPage() {
           <div className="flex items-center gap-3">
             <StarRating value={product.rating} size="md" />
             <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-              ★ {product.rating.toFixed(1)}
+              {product.rating.toFixed(1)}
             </span>
             <span className="text-slate-300 dark:text-slate-700">·</span>
             <span className="text-sm text-slate-500 dark:text-slate-400">
@@ -265,17 +269,17 @@ export default function ProductPage() {
           <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800 space-y-1">
             <div className="flex items-baseline gap-3">
               <span className="font-heading text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">
-                ${discountedPrice}
+                {formatPrice(finalPrice)}
               </span>
               {hasDiscount && (
                 <span className="text-lg text-slate-400 dark:text-slate-500 line-through">
-                  ${product.price.toFixed(2)}
+                  {formatPrice(product.price)}
                 </span>
               )}
             </div>
             {hasDiscount && (
               <p className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold">
-                You save ${(product.price - Number(discountedPrice)).toFixed(2)}{" "}
+                You save {formatPrice(savings)}{" "}
                 ({Math.round(product.discountPercentage)}%)
               </p>
             )}
@@ -284,17 +288,20 @@ export default function ProductPage() {
           <div>
             {isOutOfStock && (
               <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-rose-100 text-rose-700 dark:bg-rose-950/80 dark:text-rose-300 border border-rose-200 dark:border-rose-900">
-                ● Out of stock
+                <span className="w-1.5 h-1.5 rounded-full bg-rose-500" aria-hidden="true" />
+                <span>Out of stock</span>
               </span>
             )}
             {isLowStock && (
               <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800 dark:bg-amber-950/80 dark:text-amber-300 border border-amber-200 dark:border-amber-900">
-                ● Only {stock} left in stock!
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" aria-hidden="true" />
+                <span>Only {stock} left!</span>
               </span>
             )}
             {!isOutOfStock && !isLowStock && (
               <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-900">
-                ● In stock ({stock} available)
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
+                <span>In stock</span>
               </span>
             )}
           </div>
@@ -317,7 +324,7 @@ export default function ProductPage() {
                 <button
                   type="button"
                   onClick={handleDecrement}
-                  disabled={quantity <= 1 || isOutOfStock}
+                  disabled={quantity <= 1 || isOutOfStock || isMaxStockInCart}
                   aria-label="Decrease quantity"
                   className="w-10 h-10 inline-flex items-center justify-center rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
                 >
@@ -329,7 +336,11 @@ export default function ProductPage() {
                 <button
                   type="button"
                   onClick={handleIncrement}
-                  disabled={quantity >= stock || isOutOfStock}
+                  disabled={
+                    quantity >= availableToAdd ||
+                    isOutOfStock ||
+                    isMaxStockInCart
+                  }
                   aria-label="Increase quantity"
                   className="w-10 h-10 inline-flex items-center justify-center rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
                 >
@@ -340,13 +351,13 @@ export default function ProductPage() {
               <button
                 type="button"
                 onClick={handleAddToCart}
-                disabled={isOutOfStock}
-                className={`flex-1 min-h-12 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-emerald-500 shadow-md ${
+                disabled={isOutOfStock || isMaxStockInCart}
+                className={`flex-1 min-h-12 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-slate-900 dark:focus-visible:ring-emerald-500 shadow-md ${
                   isAdded
-                    ? "bg-emerald-700 text-white"
-                    : isOutOfStock
+                    ? "bg-slate-800 dark:bg-emerald-700 text-white"
+                    : isOutOfStock || isMaxStockInCart
                       ? "bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 cursor-not-allowed shadow-none"
-                      : "bg-emerald-600 hover:bg-emerald-700 text-white hover:shadow-lg active:scale-[0.99]"
+                      : "bg-linear-to-r from-emerald-900 to-slate-900 hover:from-slate-900 hover:to-emerald-950 dark:from-emerald-600 dark:to-teal-600 dark:hover:from-emerald-500 dark:hover:to-teal-500 text-white hover:shadow-lg active:scale-[0.99]"
                 }`}
               >
                 {isAdded ? (
@@ -354,14 +365,33 @@ export default function ProductPage() {
                     <Check className="w-5 h-5" />
                     <span>Added to Cart!</span>
                   </>
+                ) : isOutOfStock ? (
+                  <span>Out of Stock</span>
+                ) : isMaxStockInCart ? (
+                  <span>Max stock in cart ({inCartQty})</span>
                 ) : (
                   <>
                     <ShoppingCart className="w-5 h-5" />
-                    <span>{isOutOfStock ? "Out of Stock" : "Add to Cart"}</span>
+                    <span>Add to Cart</span>
                   </>
                 )}
               </button>
             </div>
+
+            {/* Inline Stock/Cart feedback per P3.3 */}
+            {inCartQty > 0 && (
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                {isMaxStockInCart ? (
+                  <span className="text-amber-600 dark:text-amber-400 font-semibold">
+                    ⚠ All {stock} available items are already in your cart.
+                  </span>
+                ) : (
+                  <span>
+                    You have {inCartQty} in cart ({availableToAdd} more available)
+                  </span>
+                )}
+              </p>
+            )}
           </div>
 
           {/* Trust badges and shipping info */}

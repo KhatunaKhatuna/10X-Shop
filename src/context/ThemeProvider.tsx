@@ -8,7 +8,7 @@ import { ThemeContext, type Theme } from "./ThemeContext";
  * Synchronizes the active theme with localStorage and the HTML root element.
  */
 export function ThemeProvider({ children }: PropsWithChildren) {
-  const [theme, setTheme] = useLocalStorage<Theme>(STORAGE_KEYS.THEME, "light");
+  const [theme, setTheme] = useLocalStorage<Theme>(STORAGE_KEYS.THEME, "dark");
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
