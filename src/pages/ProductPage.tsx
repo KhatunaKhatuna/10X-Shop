@@ -191,8 +191,8 @@ export default function ProductPage() {
               className="w-full h-full object-contain transition-all duration-300"
             />
             {hasDiscount && (
-              <span className="absolute top-4 left-4 inline-flex items-center px-3 py-1 rounded-full text-xs font-extrabold uppercase bg-rose-600 text-white shadow-sm">
-                -{Math.round(product.discountPercentage)}% OFF
+              <span className="absolute top-4 left-4 inline-flex items-center px-3 py-1 rounded-full text-xs font-extrabold uppercase bg-orange-600 text-white shadow-sm">
+                −{Math.round(product.discountPercentage)}% OFF
               </span>
             )}
           </div>
