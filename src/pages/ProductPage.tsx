@@ -254,7 +254,7 @@ export default function ProductPage() {
           <div className="flex items-center gap-3">
             <StarRating value={product.rating} size="md" />
             <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-              ★ {product.rating.toFixed(1)}
+              {product.rating.toFixed(1)}
             </span>
             <span className="text-slate-300 dark:text-slate-700">·</span>
             <span className="text-sm text-slate-500 dark:text-slate-400">
@@ -341,12 +341,12 @@ export default function ProductPage() {
                 type="button"
                 onClick={handleAddToCart}
                 disabled={isOutOfStock}
-                className={`flex-1 min-h-12 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-emerald-500 shadow-md ${
+                className={`flex-1 min-h-12 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-slate-900 dark:focus-visible:ring-emerald-500 shadow-md ${
                   isAdded
-                    ? "bg-emerald-700 text-white"
+                    ? "bg-slate-800 dark:bg-emerald-700 text-white"
                     : isOutOfStock
                       ? "bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 cursor-not-allowed shadow-none"
-                      : "bg-emerald-600 hover:bg-emerald-700 text-white hover:shadow-lg active:scale-[0.99]"
+                      : "bg-linear-to-r from-emerald-900 to-slate-900 hover:from-slate-900 hover:to-emerald-950 dark:from-emerald-600 dark:to-teal-600 dark:hover:from-emerald-500 dark:hover:to-teal-500 text-white hover:shadow-lg active:scale-[0.99]"
                 }`}
               >
                 {isAdded ? (
