@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import type { Product, ProductsResponse } from "@/types";
 import { fetchProducts } from "@/api";
 import { useCart, useFetch } from "@/hooks";
+import { scrollToTop } from "@/utils";
 import { ErrorState, EmptyState, Pagination } from "@/components/ui";
 import { ProductGrid, ProductGridSkeleton } from "@/components/product";
 
@@ -41,7 +42,7 @@ export default function CatalogPage() {
       }
       return next;
     });
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    scrollToTop();
   };
 
   const handleAddToCart = (product: Product) => {
