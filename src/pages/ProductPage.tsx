@@ -17,6 +17,7 @@ import { useCart, useFetch } from "@/hooks";
 import { StarRating, ErrorState } from "@/components/ui";
 import { ProductDetailsSkeleton } from "@/components/product";
 import NotFoundPage from "@/pages/NotFoundPage";
+import { formatPrice, discountedPrice } from "@/utils";
 
 export default function ProductPage() {
   const { addItem } = useCart();
@@ -100,9 +101,8 @@ export default function ProductPage() {
 
   // Pricing calculations
   const hasDiscount = product.discountPercentage >= 1;
-  const discountedPrice = hasDiscount
-    ? (product.price * (1 - product.discountPercentage / 100)).toFixed(2)
-    : product.price.toFixed(2);
+  const finalPrice = discountedPrice(product.price, product.discountPercentage);
+  const savings = Math.max(0, product.price - finalPrice);
 
   const handleDecrement = () => {
     setQuantity((prev) => Math.max(1, prev - 1));
@@ -265,17 +265,17 @@ export default function ProductPage() {
           <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800 space-y-1">
             <div className="flex items-baseline gap-3">
               <span className="font-heading text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">
-                ${discountedPrice}
+                {formatPrice(finalPrice)}
               </span>
               {hasDiscount && (
                 <span className="text-lg text-slate-400 dark:text-slate-500 line-through">
-                  ${product.price.toFixed(2)}
+                  {formatPrice(product.price)}
                 </span>
               )}
             </div>
             {hasDiscount && (
               <p className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold">
-                You save ${(product.price - Number(discountedPrice)).toFixed(2)}{" "}
+                You save {formatPrice(savings)}{" "}
                 ({Math.round(product.discountPercentage)}%)
               </p>
             )}
@@ -284,17 +284,20 @@ export default function ProductPage() {
           <div>
             {isOutOfStock && (
               <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-rose-100 text-rose-700 dark:bg-rose-950/80 dark:text-rose-300 border border-rose-200 dark:border-rose-900">
-                ● Out of stock
+                <span className="w-1.5 h-1.5 rounded-full bg-rose-500" aria-hidden="true" />
+                <span>Out of stock</span>
               </span>
             )}
             {isLowStock && (
               <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800 dark:bg-amber-950/80 dark:text-amber-300 border border-amber-200 dark:border-amber-900">
-                ● Only {stock} left in stock!
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" aria-hidden="true" />
+                <span>Only {stock} left!</span>
               </span>
             )}
             {!isOutOfStock && !isLowStock && (
               <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-900">
-                ● In stock ({stock} available)
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
+                <span>In stock</span>
               </span>
             )}
           </div>
