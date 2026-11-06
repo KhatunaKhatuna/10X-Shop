@@ -4,6 +4,7 @@ import { ShoppingCart, Check } from "lucide-react";
 import type { Product } from "@/types";
 import { formatPrice, discountedPrice, formatRating } from "@/utils";
 import { StarRating } from "@/components/ui";
+import { useCart } from "@/hooks";
 
 export interface ProductCardProps {
   product: Product;
@@ -23,9 +24,13 @@ export default function ProductCard({ product, onAdd }: ProductCardProps) {
     return () => clearTimeout(timer);
   }, [isAdded]);
 
+  const { items } = useCart();
+  const inCartQty =
+    items.find((item) => item.productId === product.id)?.quantity ?? 0;
+  const isOutOfStock = product.stock <= 0;
+  const isMaxInCart = inCartQty >= product.stock && product.stock > 0;
   const hasDiscount = product.discountPercentage >= 1;
   const finalPrice = discountedPrice(product.price, product.discountPercentage);
-  const isOutOfStock = product.stock <= 0;
   const isLowStock = product.stock > 0 && product.stock <= 5;
   const reviewsCount =
     product.reviews && product.reviews.length > 0 ? product.reviews.length : 12;
@@ -37,7 +42,7 @@ export default function ProductCard({ product, onAdd }: ProductCardProps) {
   const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    if (isOutOfStock) return;
+    if (isOutOfStock || isMaxInCart) return;
 
     setIsAdded(true);
     onAdd(product);
@@ -128,14 +133,16 @@ export default function ProductCard({ product, onAdd }: ProductCardProps) {
           </div>
           <button
             type="button"
-            disabled={isOutOfStock}
+            disabled={isOutOfStock || isMaxInCart}
             onClick={handleAddToCart}
             aria-label={
               isOutOfStock
                 ? `${product.title} is out of stock`
-                : isAdded
-                  ? `${product.title} added to cart`
-                  : `Add ${product.title} to cart`
+                : isMaxInCart
+                  ? `Maximum stock of ${product.title} already in cart`
+                  : isAdded
+                    ? `${product.title} added to cart`
+                    : `Add ${product.title} to cart`
             }
             className={`w-full min-h-11 py-2.5 px-4 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 disabled:bg-slate-200 dark:disabled:bg-slate-800 disabled:text-slate-400 dark:disabled:text-slate-600 ${
               isAdded
@@ -145,6 +152,8 @@ export default function ProductCard({ product, onAdd }: ProductCardProps) {
           >
             {isOutOfStock ? (
               <span>Out of Stock</span>
+            ) : isMaxInCart ? (
+              <span>Max in Cart</span>
             ) : isAdded ? (
               <>
                 <Check className="w-4 h-4" aria-hidden="true" />

@@ -20,7 +20,7 @@ import NotFoundPage from "@/pages/NotFoundPage";
 import { formatPrice, discountedPrice } from "@/utils";
 
 export default function ProductPage() {
-  const { addItem } = useCart();
+  const { addItem, items } = useCart();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -94,9 +94,13 @@ export default function ProductPage() {
       : [product.thumbnail];
   const activeImage = images[selectedImageIndex] ?? product.thumbnail;
 
-  // Stock calculations
+  // Stock & cart calculations
   const stock = product.stock ?? 0;
+  const inCartQty =
+    items.find((item) => item.productId === product.id)?.quantity ?? 0;
+  const availableToAdd = Math.max(0, stock - inCartQty);
   const isOutOfStock = stock === 0;
+  const isMaxStockInCart = inCartQty >= stock && stock > 0;
   const isLowStock = stock >= 1 && stock <= 5;
 
   // Pricing calculations
@@ -109,12 +113,12 @@ export default function ProductPage() {
   };
 
   const handleIncrement = () => {
-    setQuantity((prev) => Math.min(stock, prev + 1));
+    setQuantity((prev) => Math.min(availableToAdd, prev + 1));
   };
 
   const handleAddToCart = () => {
-    if (isOutOfStock) return;
-    addItem(product, quantity);
+    if (isOutOfStock || isMaxStockInCart || availableToAdd <= 0) return;
+    addItem(product, Math.min(quantity, availableToAdd));
     setIsAdded(true);
     setTimeout(() => {
       setIsAdded(false);
@@ -320,7 +324,7 @@ export default function ProductPage() {
                 <button
                   type="button"
                   onClick={handleDecrement}
-                  disabled={quantity <= 1 || isOutOfStock}
+                  disabled={quantity <= 1 || isOutOfStock || isMaxStockInCart}
                   aria-label="Decrease quantity"
                   className="w-10 h-10 inline-flex items-center justify-center rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
                 >
@@ -332,7 +336,11 @@ export default function ProductPage() {
                 <button
                   type="button"
                   onClick={handleIncrement}
-                  disabled={quantity >= stock || isOutOfStock}
+                  disabled={
+                    quantity >= availableToAdd ||
+                    isOutOfStock ||
+                    isMaxStockInCart
+                  }
                   aria-label="Increase quantity"
                   className="w-10 h-10 inline-flex items-center justify-center rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
                 >
@@ -343,11 +351,11 @@ export default function ProductPage() {
               <button
                 type="button"
                 onClick={handleAddToCart}
-                disabled={isOutOfStock}
+                disabled={isOutOfStock || isMaxStockInCart}
                 className={`flex-1 min-h-12 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-slate-900 dark:focus-visible:ring-emerald-500 shadow-md ${
                   isAdded
                     ? "bg-slate-800 dark:bg-emerald-700 text-white"
-                    : isOutOfStock
+                    : isOutOfStock || isMaxStockInCart
                       ? "bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 cursor-not-allowed shadow-none"
                       : "bg-linear-to-r from-emerald-900 to-slate-900 hover:from-slate-900 hover:to-emerald-950 dark:from-emerald-600 dark:to-teal-600 dark:hover:from-emerald-500 dark:hover:to-teal-500 text-white hover:shadow-lg active:scale-[0.99]"
                 }`}
@@ -357,14 +365,33 @@ export default function ProductPage() {
                     <Check className="w-5 h-5" />
                     <span>Added to Cart!</span>
                   </>
+                ) : isOutOfStock ? (
+                  <span>Out of Stock</span>
+                ) : isMaxStockInCart ? (
+                  <span>Max stock in cart ({inCartQty})</span>
                 ) : (
                   <>
                     <ShoppingCart className="w-5 h-5" />
-                    <span>{isOutOfStock ? "Out of Stock" : "Add to Cart"}</span>
+                    <span>Add to Cart</span>
                   </>
                 )}
               </button>
             </div>
+
+            {/* Inline Stock/Cart feedback per P3.3 */}
+            {inCartQty > 0 && (
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                {isMaxStockInCart ? (
+                  <span className="text-amber-600 dark:text-amber-400 font-semibold">
+                    ⚠ All {stock} available items are already in your cart.
+                  </span>
+                ) : (
+                  <span>
+                    You have {inCartQty} in cart ({availableToAdd} more available)
+                  </span>
+                )}
+              </p>
+            )}
           </div>
 
           {/* Trust badges and shipping info */}
