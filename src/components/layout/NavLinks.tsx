@@ -68,7 +68,7 @@ export default function NavLinks({
                 isMobile ? "w-5 h-5" : "w-4 h-4"
               } transition-colors`}
             />
-            {hasBadge && (
+            {hasBadge && totalItems > 0 && (
               <span
                 aria-label={`${totalItems} items in cart`}
                 className={`ml-1.5 font-bold rounded-full bg-orange-600 text-white text-xs ${
