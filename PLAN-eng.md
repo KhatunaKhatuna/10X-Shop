@@ -81,12 +81,12 @@ _Estimate: 4 hrs · Week 1 · Tier: CORE (PRD Step: 4)_
 
 _Estimate: 3 hrs · Week 1 · Tier: CORE (PRD Steps: 5, 6)_
 
-- [ ] **4.1. `AuthContext` (`src/context/AuthContext.tsx`):** `user` state, `login(username)` and `logout()` (Logout preserves cart items and redirects to `/`).
-- [ ] **4.2. `LoginPage` (`/login`):**
-  - Controlled form (`useState`, `onChange`, `onSubmit` + `preventDefault`).
-  - Strict validation: empty input -> `Username is required`, password (< 6 chars) -> `Password is required` / `Password must be at least 6 characters`.
-  - Link "← Back to catalog" (`/`).
-- [ ] **4.3. `ProtectedRoute` (for `/checkout`):** Redirect guest users to `/login` with location state (`state={{ from: location }}`), returning to `/checkout` after login.
+- [x] **4.1. `AuthContext` (`src/context/AuthContext.ts`, `AuthProvider.tsx`, `useAuth.ts`):** `user` state, `isLoggedIn`, `login(username)` and `logout()` (session persistence in `localStorage` via `useLocalStorage`; Logout preserves cart items and redirects to `/`; dynamic auth state and logout button in `NavLinks.tsx`).
+- [x] **4.2. `LoginPage` (`/login`):**
+  - Formik + Yup validation (`src/schemas/login.schema.ts`).
+  - Strict validation: empty input -> `Username is required`, password (< 6 chars) -> `Password is required` / `Password must be at least 6 characters`, Georgian characters restriction -> `Only Latin characters are allowed`.
+  - Password visibility toggle (`Eye`/`EyeOff`), guarded redirect banner, and link "← Back to catalog" (`/`).
+- [x] **4.3. `ProtectedRoute` (for `/checkout`):** Redirect guest users to `/login` with location state (`state={{ from: location }}`), automatically returning to `/checkout` after login.
 
 #### Epic 5: Catalog and Product Cards (P2 - CORE)
 
