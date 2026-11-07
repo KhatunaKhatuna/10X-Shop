@@ -160,18 +160,18 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  to="/checkout"
+                  to="/orders"
                   className="text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
                 >
-                  Checkout
+                  Order History
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/login"
+                  to="/profile"
                   className="text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
                 >
-                  My Account
+                  My Profile
                 </Link>
               </li>
             </ul>
@@ -192,6 +192,14 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link
+                  to="/checkout"
+                  className="text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+                >
+                  Secure Checkout
+                </Link>
+              </li>
+              <li>
                 <span className="text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors cursor-pointer">
                   Shipping Policy
                 </span>
@@ -199,11 +207,6 @@ export default function Footer() {
               <li>
                 <span className="text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors cursor-pointer">
                   Returns & Refunds
-                </span>
-              </li>
-              <li>
-                <span className="text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors cursor-pointer">
-                  Privacy & Terms
                 </span>
               </li>
             </ul>

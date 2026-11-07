@@ -5,6 +5,7 @@ import {
   User,
   LogOut,
   LogIn,
+  Package,
   type LucideIcon,
 } from "lucide-react";
 import { useAuth, useCart } from "@/hooks";
@@ -83,7 +84,7 @@ export default function NavLinks({
         </NavLink>
       ))}
 
-      {/* Auth State (Log in when guest, Username & Log out when authenticated) */}
+      {/* Auth State (Log in when guest, Orders & Profile & Log out when authenticated) */}
       {!isLoggedIn ? (
         <NavLink
           to="/login"
@@ -102,12 +103,34 @@ export default function NavLinks({
           <span>Log in</span>
         </NavLink>
       ) : isMobile ? (
-        /* Mobile Authenticated Menu Item */
+        /* Mobile Authenticated Menu Items */
         <div className="pt-2 border-t border-slate-200 dark:border-slate-800 space-y-2">
-          <div className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-base font-bold text-slate-800 dark:text-slate-200 min-h-11">
+          <NavLink
+            to="/orders"
+            onClick={onItemClick}
+            className={({ isActive }) =>
+              `flex items-center gap-2 px-3 py-2.5 rounded-xl font-semibold transition-all duration-200 cursor-pointer min-h-11 ${
+                isActive ? "nav-link-active" : "nav-link-inactive"
+              } text-base`
+            }
+          >
+            <Package className="w-5 h-5 transition-colors" />
+            <span>Orders</span>
+          </NavLink>
+
+          <NavLink
+            to="/profile"
+            onClick={onItemClick}
+            className={({ isActive }) =>
+              `flex items-center gap-2 px-3 py-2.5 rounded-xl font-semibold transition-all duration-200 cursor-pointer min-h-11 ${
+                isActive ? "nav-link-active" : "nav-link-inactive"
+              } text-base`
+            }
+          >
             <User className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
-            <span className="truncate">{user?.username}</span>
-          </div>
+            <span className="truncate">{user?.username} (Profile)</span>
+          </NavLink>
+
           <button
             type="button"
             onClick={handleLogout}
@@ -118,17 +141,39 @@ export default function NavLinks({
           </button>
         </div>
       ) : (
-        /* Desktop Authenticated Menu Item */
+        /* Desktop Authenticated Menu Items */
         <div className="flex items-center gap-1.5 pl-1.5 border-l border-slate-200 dark:border-slate-800">
-          <div
-            className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800/80 text-sm font-bold text-slate-700 dark:text-slate-200 min-h-11"
-            title={`Logged in as ${user?.username}`}
+          <NavLink
+            to="/orders"
+            onClick={onItemClick}
+            className={({ isActive }) =>
+              `flex items-center gap-2 px-3 py-2.5 rounded-xl font-semibold transition-all duration-200 cursor-pointer min-h-11 ${
+                isActive ? "nav-link-active" : "nav-link-inactive"
+              } text-sm`
+            }
+          >
+            <Package className="w-4 h-4 transition-colors" />
+            <span>Orders</span>
+          </NavLink>
+
+          <NavLink
+            to="/profile"
+            onClick={onItemClick}
+            className={({ isActive }) =>
+              `flex items-center gap-2 px-3 py-2.5 rounded-xl font-semibold transition-all duration-200 cursor-pointer min-h-11 ${
+                isActive
+                  ? "bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 ring-2 ring-emerald-500/30"
+                  : "bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200"
+              } text-sm`
+            }
+            title={`View profile (${user?.username})`}
           >
             <User className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
-            <span className="uppercase tracking-wide">
+            <span className="uppercase tracking-wide font-bold">
               {user?.username?.slice(0, 2)}
             </span>
-          </div>
+          </NavLink>
+
           <button
             type="button"
             onClick={handleLogout}
