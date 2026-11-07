@@ -23,8 +23,6 @@ export function useFetch<T>(
   const [trigger, setTrigger] = useState(false);
 
   const refetch = useCallback(() => {
-    setIsLoading(true);
-    setError(null);
     setTrigger((prev) => !prev);
   }, []);
 
@@ -32,9 +30,13 @@ export function useFetch<T>(
     const controller = new AbortController();
 
     async function execute() {
+      setIsLoading(true);
+      setError(null);
+
       try {
         const result = await fetchFn(controller.signal);
         setData(result);
+        setError(null);
       } catch (err: unknown) {
         if (err instanceof Error && err.name === "AbortError") {
           return;
